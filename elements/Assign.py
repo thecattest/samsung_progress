@@ -10,7 +10,9 @@ class Assign(Material):
         self.done = True
 
     async def load(self):
+        print(self.link + " started")
         response = await self.session.get(self.link)
+        print(self.link + " finished")
         self.assign_page = bs(await response.text(), features="html.parser")
         res_cell = self.assign_page.select(".submissionstatussubmitted")
         self.done = bool(len(res_cell))
