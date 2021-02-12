@@ -2,6 +2,7 @@
 /.session
 /resp.html
 /__pycache__/
+/elements/__pycache__/
 .idea
 /async_requests/
 /secret.py
