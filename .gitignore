@@ -1,0 +1,7 @@
+/venv/
+/.session
+/resp.html
+/__pycache__/
+.idea
+/async_requests/
+/secret.py
