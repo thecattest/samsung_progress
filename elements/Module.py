@@ -15,6 +15,10 @@ class Module:
 
         self.books = []
         self.tasks = []
+        self.assigns = []
+        self.tests = []
+
+        self.tests_done = self.assigns_done = 0
 
     async def load(self):
         module_link = "https://myitschool.ru/edu/course/view.php"
@@ -30,6 +34,9 @@ class Module:
 
         self.books = self.load_books()
         self.tasks = await self.load_tasks()
+
+        self.tests_done = len(list(filter(lambda x: x.done, self.tests)))
+        self.assigns_done = len(list(filter(lambda x: x.done, self.assigns)))
 
         return self
 
@@ -48,7 +55,10 @@ class Module:
 
     async def load_tasks(self):
         tasks = await asyncio.gather(self.load_assigns(), self.load_tests())
+        self.assigns = tasks[0]
+        self.tests = tasks[1]
         tasks = tasks[0] + tasks[1]
+        print(tasks)
 
         return sorted(tasks, key=lambda t: t.id)
 

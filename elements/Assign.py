@@ -8,13 +8,15 @@ class Assign(Material):
         self.session = session
         self.assign_page = None
         self.done = True
+        self.points_repr = ""
 
     async def load(self):
         response = await self.session.get(self.link)
         self.assign_page = bs(await response.text(), features="html.parser")
         res_cell = self.assign_page.select(".submissionstatussubmitted")
         self.done = bool(len(res_cell))
+        self.points_repr = 'ok' if self.done else '*'
         return self
 
     def __str__(self):
-        return f"<Assign {'ok' if self.done else '*'}> " + super().__str__()
+        return f"<Assign {self.points_repr}> " + super().__str__()

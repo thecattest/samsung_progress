@@ -13,6 +13,7 @@ class Test(Material):
         self.points = 0.0
         self.max_points = 0.0
         self.attempts = []
+        self.points_repr = ""
         # self.load()
 
     async def load(self):
@@ -43,11 +44,11 @@ class Test(Material):
             self.attempts = [Attempt(tr, self.max_points)
                              for tr in table.select("tbody tr")]
 
+        self.points_repr = str(self.points) + "/" + str(self.max_points) if self.attempts else "*"
         return self
 
     def __str__(self):
-        points = str(self.points) + "/" + str(self.max_points) if self.attempts else "*"
-        string = "<Test " + points + "> " + super().__str__()
+        string = "<Test " + self.points_repr + "> " + super().__str__()
         for at in self.attempts:
             string += "\n" + str(at)
         return string
