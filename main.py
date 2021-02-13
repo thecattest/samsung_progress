@@ -17,7 +17,7 @@ async def get_session(user, passw, save=True, filename='.session'):
         session.cookie_jar.load(filename)
         print("loaded session")
         assert await is_session_alive(session)
-        print("sesssion is alive")
+        print("session is alive")
         return session
     except FileNotFoundError:
         pass
