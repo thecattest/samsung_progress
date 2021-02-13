@@ -1,9 +1,13 @@
 from secret import USERNAME, PASSWORD
-import asyncio
-import aiohttp
-from bs4 import BeautifulSoup as bs
 from elements import Module
 from config import *
+import generate_html
+
+import asyncio
+import aiohttp
+
+from bs4 import BeautifulSoup as bs
+
 import time
 
 
@@ -47,18 +51,21 @@ async def is_session_alive(session):
 
 async def main():
     s = await get_session(USERNAME, PASSWORD)
-    module = Module(session=s, section_id=THIRD)
-    await module.load()
-    print(module)
 
-    # modules = [Module(s, i) for i in [FIRST, SECOND, THIRD, FOURTH, FIFTH]]
-    # modules = await asyncio.gather(*[m.load() for m in modules])
-    # print(modules)
+    # module = Module(session=s, section_id=THIRD)
+    # await module.load()
+    # print(module)
+
+    modules = [Module(s, i) for i in [FIRST, SECOND, THIRD, FOURTH, FIFTH]]
+    modules = await asyncio.gather(*[m.load() for m in modules])
 
     # for i in [FIRST, SECOND, THIRD, FOURTH, FIFTH]:
     #     module = Module(session=s, section_id=i)
     #     await module.load()
     #     print(module)
+
+    with open("res.html", "wt") as file:
+        file.write(generate_html.render_template(modules))
     await s.close()
 
 start = time.time()
