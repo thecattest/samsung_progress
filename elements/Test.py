@@ -17,9 +17,9 @@ class Test(Material):
         # self.load()
 
     async def load(self):
-        print(self.link + " started")
+        # print(self.link + " started")
         response = await self.session.get(self.link)
-        print(self.link + " finished")
+        # print(self.link + " finished")
         self.test_page = bs(await response.text(), features="html.parser")
         feedback = self.test_page.select("#feedback")
         if feedback:

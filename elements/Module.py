@@ -21,6 +21,7 @@ class Module:
         self.tests_done = self.assigns_done = 0
 
     async def load(self):
+        print("Started loading id " + str(self.section))
         module_link = "https://myitschool.ru/edu/course/view.php"
         params = {
             "id": 6,
@@ -34,10 +35,11 @@ class Module:
 
         self.books = self.load_books()
         self.tasks = await self.load_tasks()
+        print("Loaded tasks id " + str(self.section))
 
         self.tests_done = len(list(filter(lambda x: x.done, self.tests)))
         self.assigns_done = len(list(filter(lambda x: x.done, self.assigns)))
-
+        print("Finished loading id " + str(self.section))
         return self
 
     def load_books(self):
