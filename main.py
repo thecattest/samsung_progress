@@ -15,14 +15,14 @@ async def get_session(user, passw, save=True, filename='.session'):
     session = aiohttp.ClientSession()
     try:
         session.cookie_jar.load(filename)
-        print("loaded")
+        print("loaded session")
         assert await is_session_alive(session)
-        print("alive")
+        print("sesssion is alive")
         return session
     except FileNotFoundError:
         pass
     except AssertionError:
-        print("not alive")
+        print("session is not alive")
 
     login_page_link = "https://myitschool.ru/edu/login/index.php"
     data = {
@@ -38,7 +38,7 @@ async def get_session(user, passw, save=True, filename='.session'):
     if save:
         session.cookie_jar.save(filename)
 
-    print("got")
+    print("got new session")
     return session
 
 
