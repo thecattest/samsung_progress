@@ -58,7 +58,6 @@ class Module:
         self.assigns = tasks[0]
         self.tests = tasks[1]
         tasks = tasks[0] + tasks[1]
-        print(tasks)
 
         return sorted(tasks, key=lambda t: t.id)
 
