@@ -5,7 +5,6 @@ import generate_html
 import session
 
 import asyncio
-from bs4 import BeautifulSoup as bs
 import time
 
 

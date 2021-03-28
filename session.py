@@ -1,4 +1,5 @@
 import aiohttp
+from bs4 import BeautifulSoup as bs
 
 
 async def get(user, passw, save=True, filename='.session'):
@@ -6,7 +7,7 @@ async def get(user, passw, save=True, filename='.session'):
     try:
         session.cookie_jar.load(filename)
         print("loaded session")
-        assert await is_session_alive(session)
+        assert await is_alive(session)
         print("session is alive")
         return session
     except FileNotFoundError:
